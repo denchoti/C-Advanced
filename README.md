@@ -1,4 +1,4 @@
-# C-Advanced
+# C#-Advanced
 Topics: 
 
 1.	Stacks and queues  
