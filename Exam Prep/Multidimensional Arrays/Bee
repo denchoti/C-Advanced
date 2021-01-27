@@ -1,0 +1,105 @@
+using System;
+
+namespace Bee
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            char[,] matrix = new char[n, n];
+
+            int beeRow = -1;
+            int beeCol = -1;
+           
+            for (int row = 0; row < n; row++)
+            {
+                char[] input = Console.ReadLine().ToCharArray();
+                for (int col = 0; col < n; col++)
+                {
+                    matrix[row, col] = input[col];
+                    if (matrix[row,col] == 'B')
+                    {
+                        beeRow = row;
+                        beeCol = col;
+                    }
+                }
+            }
+
+            int pollinatedCount = 0; //at least 5
+
+            string command = Console.ReadLine();
+            while (command != "End")
+            {
+                
+                matrix[beeRow, beeCol] = '.';
+                switch (command)
+                {
+                    case "up":
+                        beeRow--;
+                        break;
+                    case "down":
+                        beeRow++;
+                        break;
+                    case "left":
+                        beeCol--;
+                        break;
+                    case "right":
+                        beeCol++;
+                        break;
+                }
+
+                if (!IsValidCell(beeRow, beeCol, n))
+                {
+                    Console.WriteLine("The bee got lost!");
+                    break;
+                }
+
+                if (matrix[beeRow, beeCol] == 'O')
+                {
+                    continue;
+                }
+
+                if (matrix[beeRow,beeCol] == 'f')
+                {
+                    pollinatedCount++;
+                    matrix[beeRow, beeCol] = '.';
+                }
+
+                matrix[beeRow, beeCol] = 'B';
+                command = Console.ReadLine();
+            }
+
+            if (pollinatedCount >= 5)
+            {
+                Console.WriteLine($"Great job, the bee managed to pollinate {pollinatedCount} flowers!");
+            }
+            else
+            {
+                int neededFlowers = 5 - pollinatedCount;
+                Console.WriteLine($"The bee couldn't pollinate the flowers, she needed {neededFlowers} flowers more");
+            }
+
+            PrintMatrix(matrix);
+
+        }
+
+        static void PrintMatrix(char[,] matrix)
+        {
+            for (int row = 0; row < matrix.GetLength(0); row++)
+            {
+                for (int col = 0; col < matrix.GetLength(1); col++)
+                {
+                    Console.Write(matrix[row, col]);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private static bool IsValidCell(int row, int col, int n)
+        {
+            return row >= 0 && row < n && col >= 0 && col < n;
+        }
+
+    }
+}
