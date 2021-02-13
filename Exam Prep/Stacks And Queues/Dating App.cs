@@ -39,12 +39,20 @@ namespace DatingApp
                 if (currentFemale % 25 == 0)
                 {
                     females.Dequeue();
-                    females.Dequeue();
+                    if (females.Any())
+                    {
+                        females.Dequeue();
+                    }
+                   
                 }
                 if (currentMale % 25 == 0)
                 {
                     males.Pop();
-                    males.Pop();
+                    if (males.Any())
+                    {
+                        males.Pop();
+                    }
+                   
                 }
                 if (!males.Any() || !females.Any())
                 {
