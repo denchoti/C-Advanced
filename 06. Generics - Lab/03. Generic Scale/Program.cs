@@ -1,4 +1,4 @@
-using EqualityScale;
+﻿using EqualityScale;
 using System;
 
 namespace GenericScale
